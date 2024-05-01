@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn75un3q2aleo"]
+
+[ext_resource type="Script" path="res://scenes/HellBlaster/hell_blaster_bullet.gd" id="1_ic7bh"]
+[ext_resource type="Texture2D" uid="uid://e5k7ha78g6jy" path="res://assets/sprites/HellBlasterBullet.png" id="1_mbud6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w63vp"]
+radius = 4.0
+
+[node name="HellBlasterBullet" type="Node2D"]
+script = ExtResource("1_ic7bh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_mbud6")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="DamageArea" type="Area2D" parent="." groups=["player_bullet"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("CircleShape2D_w63vp")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

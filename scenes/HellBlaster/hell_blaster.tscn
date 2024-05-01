@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://byiqhsw3vkqs"]
+
+[ext_resource type="Texture2D" uid="uid://bti3i38fklqye" path="res://assets/sprites/HellBlaster.png" id="1_evyv3"]
+[ext_resource type="Script" path="res://scenes/HellBlaster/hell_blaster.gd" id="1_vaid3"]
+[ext_resource type="PackedScene" uid="uid://bn75un3q2aleo" path="res://scenes/HellBlaster/hell_blaster_bullet.tscn" id="2_7mv05"]
+[ext_resource type="Texture2D" uid="uid://c4xmsmoqqwmqj" path="res://assets/sprites/Muzzle Flash 13.png" id="4_sx36r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vonvy"]
+atlas = ExtResource("4_sx36r")
+region = Rect2(208, 48, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jun20"]
+atlas = ExtResource("4_sx36r")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bl88"]
+atlas = ExtResource("4_sx36r")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fyn0"]
+atlas = ExtResource("4_sx36r")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vtsh"]
+atlas = ExtResource("4_sx36r")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xf62u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vonvy")
+}],
+"loop": false,
+"name": &"blank",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jun20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2bl88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fyn0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vtsh")
+}],
+"loop": false,
+"name": &"flash",
+"speed": 16.0
+}]
+
+[node name="HellBlaster" type="Node2D"]
+script = ExtResource("1_vaid3")
+bullet = ExtResource("2_7mv05")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(10, -1)
+texture = ExtResource("1_evyv3")
+
+[node name="MuzzleFlash" type="AnimatedSprite2D" parent="."]
+position = Vector2(32, -2)
+sprite_frames = SubResource("SpriteFrames_xf62u")
+animation = &"blank"
+
+[node name="BulletSpawnPoint" type="Node2D" parent="."]
+position = Vector2(27, -2)
+
+[connection signal="animation_finished" from="MuzzleFlash" to="." method="_on_muzzle_flash_animation_finished"]

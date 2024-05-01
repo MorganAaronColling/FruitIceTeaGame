@@ -1,0 +1,106 @@
+[gd_scene load_steps=8 format=3 uid="uid://df6h2uiwv541v"]
+
+[ext_resource type="Texture2D" uid="uid://cbeg58rl10eqf" path="res://assets/sprites/lemon.png" id="1_6v5e4"]
+[ext_resource type="Script" path="res://scenes/reusableScripts/fruitCharacterBase.gd" id="1_bppdg"]
+
+[sub_resource type="Animation" id="Animation_a3a68"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.1, 0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-10, -50)]
+}
+
+[sub_resource type="Animation" id="Animation_qxsm3"]
+resource_name = "idle"
+length = 0.75
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(0.1, 0.095), Vector2(0.1, 0.1)]
+}
+
+[sub_resource type="Animation" id="Animation_upot0"]
+resource_name = "walk"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-10, -50), Vector2(-10, -60), Vector2(-10, -55)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(0.1, 0.095), Vector2(0.1, 0.105)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dtg8p"]
+_data = {
+"RESET": SubResource("Animation_a3a68"),
+"idle": SubResource("Animation_qxsm3"),
+"walk": SubResource("Animation_upot0")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3itr6"]
+radius = 22.0907
+
+[node name="Lemon" type="CharacterBody2D"]
+scale = Vector2(0.8, 0.8)
+script = ExtResource("1_bppdg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-10, -57)
+scale = Vector2(0.1, 0.096)
+texture = ExtResource("1_6v5e4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dtg8p")
+}
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, -5)
+shape = SubResource("CircleShape2D_3itr6")

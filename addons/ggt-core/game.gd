@@ -2,9 +2,11 @@
 # Eg: `Game.change_scene("res://scenes/gameplay/gameplay.tscn)`
 extends Node
 
-
 var size: get = get_size
 
+var souls_count = 0
+var ammo_count = 12
+var gui
 
 func change_scene_to_file(new_scene: String, params = {}):
 	if not ResourceLoader.exists(new_scene):
@@ -12,19 +14,24 @@ func change_scene_to_file(new_scene: String, params = {}):
 		return
 	Scenes.change_scene_multithread(new_scene, params)  # multi-thread
 
-
 # Restart the current scene
 func restart_scene():
 	var scene_data = Scenes.get_last_loaded_scene_data()
 	change_scene_to_file(scene_data.path, scene_data.params)
-
 
 # Restart the current scene, but use given params
 func restart_scene_with_params(override_params):
 	var scene_data = Scenes.get_last_loaded_scene_data()
 	change_scene_to_file(scene_data.path, override_params)
 
-
 func get_size():
 	return get_viewport().get_visible_rect().size
+	
+func update_souls_count(soul_change):
+	souls_count += soul_change
+	gui.update_gui()
+	
+func update_ammo_count(current_ammo_count):
+	ammo_count = current_ammo_count
+	gui.update_gui()
 

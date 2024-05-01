@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://btmnwp502v1a1"]
+
+[ext_resource type="Texture2D" uid="uid://m2ofnvqs8vjv" path="res://assets/sprites/icedtea.png" id="1_nnl6n"]
+
+[node name="Icedtea" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -38)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_nnl6n")

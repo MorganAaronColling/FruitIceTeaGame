@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://lvo45oxp3u7x"]
+
+[ext_resource type="Texture2D" uid="uid://befq5dihvxvbl" path="res://assets/sprites/ALTARFLOOR.png" id="1_8rr3s"]
+[ext_resource type="Script" path="res://scenes/altar/altar.gd" id="1_hhwah"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nvdmu"]
+radius = 119.474
+
+[node name="Altar" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_hhwah")
+
+[node name="Altarfloor" type="Sprite2D" parent="."]
+scale = Vector2(1, 0.95)
+skew = 0.0261799
+texture = ExtResource("1_8rr3s")
+
+[node name="SacrificeArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SacrificeArea"]
+shape = SubResource("CircleShape2D_nvdmu")
+
+[connection signal="body_entered" from="SacrificeArea" to="." method="_on_sacrifice_area_body_entered"]
+[connection signal="body_exited" from="SacrificeArea" to="." method="_on_sacrifice_area_body_exited"]
